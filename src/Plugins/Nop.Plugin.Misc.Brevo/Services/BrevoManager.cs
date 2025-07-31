@@ -4,9 +4,6 @@ using System.Text.RegularExpressions;
 using brevo_csharp.Api;
 using brevo_csharp.Client;
 using brevo_csharp.Model;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -24,6 +21,7 @@ using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Messages;
 using Nop.Services.Stores;
+using Nop.Web.Framework.Mvc.Routing;
 using static brevo_csharp.Model.GetAttributesAttributes;
 
 namespace Nop.Plugin.Misc.Brevo.Services;
@@ -35,7 +33,6 @@ public partial class BrevoManager
 {
     #region Fields
 
-    protected readonly IActionContextAccessor _actionContextAccessor;
     protected readonly ICountryService _countryService;
     protected readonly ICustomerService _customerService;
     protected readonly IEmailAccountService _emailAccountService;
@@ -43,10 +40,10 @@ public partial class BrevoManager
     protected readonly ILanguageService _languageService;
     protected readonly ILogger _logger;
     protected readonly INewsLetterSubscriptionService _newsLetterSubscriptionService;
+    protected readonly INopUrlHelper _nopUrlHelper;
     protected readonly ISettingService _settingService;
     protected readonly IStateProvinceService _stateProvinceService;
     protected readonly IStoreService _storeService;
-    protected readonly IUrlHelperFactory _urlHelperFactory;
     protected readonly IWebHelper _webHelper;
     protected readonly IWorkContext _workContext;
 
@@ -54,22 +51,20 @@ public partial class BrevoManager
 
     #region Ctor
 
-    public BrevoManager(IActionContextAccessor actionContextAccessor,
-        ICountryService countryService,
+    public BrevoManager(ICountryService countryService,
         ICustomerService customerService,
         IEmailAccountService emailAccountService,
         IGenericAttributeService genericAttributeService,
         ILanguageService languageService,
         ILogger logger,
         INewsLetterSubscriptionService newsLetterSubscriptionService,
+        INopUrlHelper nopUrlHelper,
         ISettingService settingService,
         IStateProvinceService stateProvinceService,
         IStoreService storeService,
-        IUrlHelperFactory urlHelperFactory,
         IWebHelper webHelper,
         IWorkContext workContext)
     {
-        _actionContextAccessor = actionContextAccessor;
         _countryService = countryService;
         _customerService = customerService;
         _emailAccountService = emailAccountService;
@@ -77,10 +72,10 @@ public partial class BrevoManager
         _languageService = languageService;
         _logger = logger;
         _newsLetterSubscriptionService = newsLetterSubscriptionService;
+        _nopUrlHelper = nopUrlHelper;
         _settingService = settingService;
         _stateProvinceService = stateProvinceService;
         _storeService = storeService;
-        _urlHelperFactory = urlHelperFactory;
         _webHelper = webHelper;
         _workContext = workContext;
     }
@@ -234,8 +229,7 @@ public partial class BrevoManager
                 }
 
                 //get notification URL
-                var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
-                var notificationUrl = urlHelper.RouteUrl(BrevoDefaults.ImportContactsRoute, null, _webHelper.GetCurrentRequestProtocol());
+                var notificationUrl = _nopUrlHelper.RouteUrl(BrevoDefaults.ImportContactsRoute, null, _webHelper.GetCurrentRequestProtocol());
 
                 //prepare CSV 
                 var title =
@@ -755,8 +749,7 @@ public partial class BrevoManager
             }
 
             //or create new one
-            var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
-            var notificationUrl = urlHelper.RouteUrl(BrevoDefaults.UnsubscribeContactRoute, null, _webHelper.GetCurrentRequestProtocol());
+            var notificationUrl = _nopUrlHelper.RouteUrl(BrevoDefaults.UnsubscribeContactRoute, null, _webHelper.GetCurrentRequestProtocol());
             var webhook = new CreateWebhook(notificationUrl, "Unsubscribe event webhook",
                 [CreateWebhook.EventsEnum.Unsubscribed], CreateWebhook.TypeEnum.Transactional);
             var result = await client.CreateWebhookAsync(webhook);
