@@ -5,6 +5,7 @@ using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
+using Nop.Core.Http;
 using Nop.Plugin.Payments.AmazonPay.Enums;
 using Nop.Plugin.Payments.AmazonPay.Models;
 using Nop.Services.Authentication.External;
@@ -751,7 +752,7 @@ public class AmazonPayCheckoutService
                 storeId: _amazonPaySettings.StoreId,
                 scopes.ToArray()
             )
-            { WebCheckoutDetails = { CheckoutCancelUrl = _amazonPayApiService.GetUrl("ShoppingCart") } };
+            { WebCheckoutDetails = { CheckoutCancelUrl = _amazonPayApiService.GetUrl(NopRouteNames.Generic.CART) } };
 
             request.PlatformId = AmazonPayDefaults.SpId;
             request.MerchantMetadata.CustomInformation = AmazonPayDefaults.IntegrationName;

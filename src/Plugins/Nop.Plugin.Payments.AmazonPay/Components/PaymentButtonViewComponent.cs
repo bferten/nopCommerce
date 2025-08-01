@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Nop.Core.Domain.Orders;
+using Nop.Core.Http;
 using Nop.Plugin.Payments.AmazonPay.Enums;
 using Nop.Plugin.Payments.AmazonPay.Services;
 using Nop.Services.Orders;
@@ -109,7 +110,7 @@ public class PaymentButtonViewComponent : NopViewComponent
 
         if (_orderSettings.OnePageCheckoutEnabled)
         {
-            if (!routeName.Equals(AmazonPayDefaults.OnePageCheckoutRouteName))
+            if (!routeName.Equals(NopRouteNames.Standard.CHECKOUT_ONE_PAGE))
                 return Content(string.Empty);
 
             var onePageModel = await _amazonPayCheckoutService.GetPaymentInfoModelAsync(ButtonPlacement.Checkout);
@@ -120,17 +121,17 @@ public class PaymentButtonViewComponent : NopViewComponent
         }
 
         if (!_orderSettings.DisableBillingAddressCheckoutStep
-            && !routeName.Equals("CheckoutBillingAddress", StringComparison.InvariantCultureIgnoreCase))
+            && !routeName.Equals(NopRouteNames.Standard.CHECKOUT_BILLING_ADDRESS, StringComparison.InvariantCultureIgnoreCase))
             return Content(string.Empty);
 
         if (_orderSettings.DisableBillingAddressCheckoutStep
             && await _shoppingCartService.ShoppingCartRequiresShippingAsync(await _amazonPayCheckoutService.GetCartAsync())
-            && !routeName.Equals("CheckoutShippingAddress", StringComparison.InvariantCultureIgnoreCase))
+            && !routeName.Equals(NopRouteNames.Standard.CHECKOUT_SHIPPING_ADDRESS, StringComparison.InvariantCultureIgnoreCase))
             return Content(string.Empty);
 
         if (_orderSettings.DisableBillingAddressCheckoutStep
             && !await _shoppingCartService.ShoppingCartRequiresShippingAsync(await _amazonPayCheckoutService.GetCartAsync())
-            && !routeName.Equals("CheckoutShippingMethod", StringComparison.InvariantCultureIgnoreCase))
+            && !routeName.Equals(NopRouteNames.Standard.CHECKOUT_SHIPPING_METHOD, StringComparison.InvariantCultureIgnoreCase))
             return Content(string.Empty);
 
         var checkoutModel = await _amazonPayCheckoutService.GetPaymentInfoModelAsync(ButtonPlacement.Checkout);

@@ -41,7 +41,7 @@
                                 $('#associateButton').hide();
                                 $('#createButton').hide();
                                 if (data.responseJSON.Redirect) {
-                                    window.location = '@(Url.RouteUrl("Login", new { returnUrl = webHelper.GetRawUrl(Context.Request) }))';
+                                    window.location = '@(Url.RouteUrl(NopRouteNames.Generic.LOGIN, new { returnUrl = webHelper.GetRawUrl(Context.Request) }))';
                                 }
                                 else {
                                     window.location = window.location.href;

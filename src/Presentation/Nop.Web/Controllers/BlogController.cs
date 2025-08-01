@@ -4,6 +4,7 @@ using Nop.Core.Domain.Blogs;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Security;
 using Nop.Core.Events;
+using Nop.Core.Http;
 using Nop.Core.Rss;
 using Nop.Services.Blogs;
 using Nop.Services.Customers;
@@ -93,7 +94,7 @@ public partial class BlogController : BasePublicController
     public virtual async Task<IActionResult> List(BlogPagingFilteringModel command)
     {
         if (!_blogSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var model = await _blogModelFactory.PrepareBlogPostListModelAsync(command);
         return View("List", model);
@@ -102,7 +103,7 @@ public partial class BlogController : BasePublicController
     public virtual async Task<IActionResult> BlogByTag(BlogPagingFilteringModel command)
     {
         if (!_blogSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var model = await _blogModelFactory.PrepareBlogPostListModelAsync(command);
         return View("List", model);
@@ -111,7 +112,7 @@ public partial class BlogController : BasePublicController
     public virtual async Task<IActionResult> BlogByMonth(BlogPagingFilteringModel command)
     {
         if (!_blogSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var model = await _blogModelFactory.PrepareBlogPostListModelAsync(command);
         return View("List", model);
@@ -145,7 +146,7 @@ public partial class BlogController : BasePublicController
     public virtual async Task<IActionResult> BlogPost(int blogPostId)
     {
         if (!_blogSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var blogPost = await _blogService.GetBlogPostByIdAsync(blogPostId);
         if (blogPost == null)
@@ -177,11 +178,11 @@ public partial class BlogController : BasePublicController
     public virtual async Task<IActionResult> BlogCommentAdd(int blogPostId, BlogPostModel model, bool captchaValid)
     {
         if (!_blogSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var blogPost = await _blogService.GetBlogPostByIdAsync(blogPostId);
         if (blogPost == null || !blogPost.AllowComments)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var customer = await _workContext.GetCurrentCustomerAsync();
         if (await _customerService.IsGuestAsync(customer) && !_blogSettings.AllowNotRegisteredUsersToLeaveComments)

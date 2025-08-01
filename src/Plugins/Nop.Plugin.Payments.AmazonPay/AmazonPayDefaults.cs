@@ -28,11 +28,6 @@ public static class AmazonPayDefaults
     public static string CheckoutResultHandlerRouteName => "Plugin.Payments.AmazonPay.CheckoutResult";
 
     /// <summary>
-    /// Gets the one page checkout route name
-    /// </summary>
-    public static string OnePageCheckoutRouteName => "CheckoutOnePage";
-
-    /// <summary>
     /// Gets the currencies page route name
     /// </summary>
     public static string CurrenciesPageRouteName => "CurrencyList";

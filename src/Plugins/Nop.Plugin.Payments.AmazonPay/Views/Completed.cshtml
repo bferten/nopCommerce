@@ -27,11 +27,11 @@
                     <strong>@T("Checkout.OrderNumber"): @Model.CustomOrderNumber</strong>
                 </div>
                 <div class="details-link">
-                    <a href="@Url.RouteUrl("OrderDetails", new { orderID = Model.OrderId })">@T("Checkout.PlacedOrderDetails")</a>
+                    <a href="@Url.RouteUrl(NopRouteNames.Standard.ORDER_DETAILS, new { orderID = Model.OrderId })">@T("Checkout.PlacedOrderDetails")</a>
                 </div>
             </div>
             <div class="buttons">
-                <div><button type="button" class="button-1 order-completed-continue-button" onclick="setLocation('@Url.RouteUrl("Homepage")')">@T("Checkout.ThankYou.Continue")</button></div>
+                <div><button type="button" class="button-1 order-completed-continue-button" onclick="setLocation('@Url.RouteUrl(NopStandarmes.Generic.HOMEPAGE)')">@T("Checkout.ThankYou.Continue")</button></div>
                 <div><button id="signout" type="button" class="button-1" style="margin-top: 5px;">@T("Plugins.Payments.AmazonPay.SignIn.SignOutButton")</button></div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             url: '@Url.Action("SignOut", "AmazonPayCustomer")',
             data: postData,
             success: function (data, textStatus, jqXHR) {
-                setLocation('@Url.RouteUrl("Homepage")')
+                setLocation('@Url.RouteUrl(NopStandarmes.Generic.HOMEPAGE)')
             },
         });
     }

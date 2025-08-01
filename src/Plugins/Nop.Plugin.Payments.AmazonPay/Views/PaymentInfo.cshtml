@@ -90,7 +90,7 @@
 
     function AddProductToCart(amazonPayButton) {
 
-        var urladd = '@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })';
+        var urladd = '@Url.RouteUrl(NopRouteNames.Ajax.ADD_PRODUCT_TO_CART_DETAILS, new { productId = Model.ProductId, shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart })';
 
         if (AjaxCart.loadWaiting !== false) {
             return;

@@ -4,6 +4,7 @@ using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.News;
 using Nop.Core.Domain.Security;
 using Nop.Core.Events;
+using Nop.Core.Http;
 using Nop.Core.Rss;
 using Nop.Services.Customers;
 using Nop.Services.Localization;
@@ -93,7 +94,7 @@ public partial class NewsController : BasePublicController
     public virtual async Task<IActionResult> List(NewsPagingFilteringModel command)
     {
         if (!_newsSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var model = await _newsModelFactory.PrepareNewsItemListModelAsync(command);
         return View(model);
@@ -127,7 +128,7 @@ public partial class NewsController : BasePublicController
     public virtual async Task<IActionResult> NewsItem(int newsItemId)
     {
         if (!_newsSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var newsItem = await _newsService.GetNewsByIdAsync(newsItemId);
         if (newsItem == null)
@@ -161,11 +162,11 @@ public partial class NewsController : BasePublicController
     public virtual async Task<IActionResult> NewsCommentAdd(int newsItemId, NewsItemModel model, bool captchaValid)
     {
         if (!_newsSettings.Enabled)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         var newsItem = await _newsService.GetNewsByIdAsync(newsItemId);
         if (newsItem == null || !newsItem.Published || !newsItem.AllowComments)
-            return RedirectToRoute("Homepage");
+            return RedirectToRoute(NopRouteNames.Generic.HOMEPAGE);
 
         //validate CAPTCHA
         if (_captchaSettings.Enabled && _captchaSettings.ShowOnNewsCommentPage && !captchaValid)

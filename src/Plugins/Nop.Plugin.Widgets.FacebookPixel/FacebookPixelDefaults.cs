@@ -1,4 +1,5 @@
 ﻿using Nop.Core.Caching;
+using Nop.Core.Http;
 
 namespace Nop.Plugin.Widgets.FacebookPixel;
 
@@ -30,12 +31,7 @@ public class FacebookPixelDefaults
     /// <summary>
     /// Gets the route name of checkout endpoint
     /// </summary>
-    public static string CheckoutRouteName => "Checkout";
-
-    /// <summary>
-    /// Gets the route name of one page checkout endpoint
-    /// </summary>
-    public static string CheckoutOnePageRouteName => "CheckoutOnePage";
+    public static string CheckoutRouteName => NopRouteNames.Standard.CHECKOUT;
 
     /// <summary>
     /// Gets the route name of area

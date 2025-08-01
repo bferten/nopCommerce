@@ -2,6 +2,7 @@
 using Amazon.Pay.API.WebStore.Types;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
+using Nop.Core.Http;
 using Nop.Plugin.Payments.AmazonPay.Models;
 using Nop.Services.Authentication;
 using Nop.Services.Authentication.External;
@@ -188,7 +189,7 @@ public class AmazonPayCustomerService
             var logMessage = $"{AmazonPayDefaults.PluginSystemName} error:{System.Environment.NewLine}{exception.Message}";
             await _logger.ErrorAsync(logMessage, exception, await _workContext.GetCurrentCustomerAsync());
 
-            return new RedirectToRouteResult("Login");
+            return new RedirectToRouteResult(NopRouteNames.Generic.LOGIN);
         }
     }
 

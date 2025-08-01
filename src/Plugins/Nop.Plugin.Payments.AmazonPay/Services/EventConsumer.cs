@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Primitives;
 using Nop.Core;
 using Nop.Core.Domain.Orders;
+using Nop.Core.Http;
 using Nop.Plugin.Payments.AmazonPay.Models;
 using Nop.Services.Authentication.External;
 using Nop.Services.Catalog;
@@ -88,7 +89,7 @@ public class EventConsumer :
             await _amazonPayApiService.EnsureCurrencyIsValidAsync();
 
         //add js script to one page checkout
-        if (routeName == AmazonPayDefaults.OnePageCheckoutRouteName)
+        if (routeName == NopRouteNames.Standard.CHECKOUT_ONE_PAGE)
             _nopHtmlHelper.AddScriptParts(ResourceLocation.Footer, _amazonPayApiService.AmazonPayScriptUrl, excludeFromBundle: true);
     }
 
