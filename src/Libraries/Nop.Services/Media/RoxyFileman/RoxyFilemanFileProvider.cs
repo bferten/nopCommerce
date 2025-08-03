@@ -22,7 +22,8 @@ using SkiaSharp;
 
      #region Ctor
 
-     public RoxyFilemanFileProvider(INopFileProvider nopFileProvider, MediaSettings mediaSettings) : base(nopFileProvider.Combine(mediaSettings.ImagePath, NopRoxyFilemanDefaults.DefaultRootDirectory))
+     public RoxyFilemanFileProvider(INopFileProvider nopFileProvider, 
+         MediaSettings mediaSettings) : base(nopFileProvider.Combine(nopFileProvider.GetLocalPicturesPath(mediaSettings), NopRoxyFilemanDefaults.DefaultRootDirectory))
      {
          _mediaSettings = mediaSettings;
          _nopFileProvider = nopFileProvider;

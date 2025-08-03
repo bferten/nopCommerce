@@ -16,6 +16,7 @@ using Nop.Data.Migrations;
 using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Core.Domain.Forums;
+using Nop.Services.Media;
 
 namespace Nop.Web.Framework.Migrations.UpgradeTo490;
 
@@ -268,10 +269,10 @@ public class SettingMigration : MigrationBase
         }
 
         //#5986
-        if (!settingService.SettingExists(mediaSettings, settings => settings.ImagePath))
+        if (!settingService.SettingExists(mediaSettings, settings => settings.PicturePath))
         {
-            mediaSettings.ImagePath = _fileProvider.GetAbsolutePath("images");
-            settingService.SaveSetting(mediaSettings, settings => settings.ImagePath);
+            mediaSettings.PicturePath = NopMediaDefaults.DefaultImagesPath;
+            settingService.SaveSetting(mediaSettings, settings => settings.PicturePath);
         }
     }
 

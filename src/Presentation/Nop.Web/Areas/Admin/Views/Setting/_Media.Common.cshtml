@@ -28,25 +28,33 @@
     {
         <div class="form-group row advanced-setting">
             <div class="col-md-3">
-                <nop-label asp-for="ImagePath" />
+                <nop-label asp-for="PicturePath" />
             </div>
-            <div class="col-md-8">
-                <nop-editor asp-for="ImagePath" />
-                <span asp-validation-for="ImagePath"></span>
+            <div class="col-md-7">
+                <nop-editor asp-for="PicturePath" />
+                <span asp-validation-for="PicturePath"></span>
             </div>
-            <div class="col-md-1">
-                <button type="submit" id="change-image-path" name="change-image-path" class="btn btn-primary">
-                    @T("Admin.Configuration.Settings.Media.ImagePath.Move")
+            <div class="col-md-2">
+                <button type="submit" id="change-picture-path" name="change-picture-path" class="btn btn-primary">
+                    @Html.Raw(@T("Admin.Configuration.Settings.Media.PicturePath.Move"))
                 </button>
-                <nop-action-confirmation asp-button-id="change-image-path" />
+                <nop-action-confirmation asp-button-id="change-picture-path" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-9 offset-md-3">
+                <span>@T("Admin.Configuration.Settings.Media.ChangePicturePath.Note")</span>
             </div>
         </div>
     }
-    <div class="form-group row">
-        <div class="col-md-9 offset-md-3">
-            <span>@T("Admin.Configuration.Settings.Media.PicturesStoredIntoDatabase.Note")</span>
+    else
+    {
+        <div class="form-group row">
+            <div class="col-md-9 offset-md-3">
+                <span>@T("Admin.Configuration.Settings.Media.PicturesStoredIntoDatabase.Note")</span>
+            </div>
         </div>
-    </div>
+    }
     <div class="form-group row advanced-setting">
         <div class="col-md-3">
             <nop-override-store-checkbox asp-for="MaximumImageSize_OverrideForStore" asp-input="MaximumImageSize" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />

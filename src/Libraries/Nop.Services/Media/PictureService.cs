@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Drawing;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
@@ -152,7 +151,7 @@ public partial class PictureService : IPictureService
     /// </returns>
     protected virtual Task<string> GetPictureLocalPathAsync(string fileName)
     {
-        return Task.FromResult(_fileProvider.Combine(_mediaSettings.ImagePath, fileName));
+        return Task.FromResult(_fileProvider.Combine(_fileProvider.GetLocalPicturesPath(_mediaSettings), fileName));
     }
 
     /// <summary>
@@ -1153,50 +1152,55 @@ public partial class PictureService : IPictureService
         }
     }
 
+
     /// <summary>
-    /// Change path to store images
+    /// Change path to store pictures
     /// </summary>
-    /// <param name="newPath">New path</param>
+    /// <param name="path">New path</param>
     /// <returns>A task that represents the asynchronous operation</returns>
-    public virtual async Task ChangeImagePathAsync(string newPath)
+    public virtual async Task ChangePicturesPathAsync(string path)
     {
-        if (newPath.Equals(_mediaSettings.ImagePath))
+        var newPath = _fileProvider.GetLocalPicturesPath(_mediaSettings, path);
+        _fileProvider.CreateDirectory(newPath);
+
+        var oldPath = _fileProvider.GetLocalPicturesPath(_mediaSettings);
+        if (newPath.Equals(oldPath))
             return;
 
-        var isSubDir = newPath.StartsWith(_mediaSettings.ImagePath);
+        var isSubDir = newPath.StartsWith(oldPath);
 
         var directoriesToDelete = new List<string>();
         newPath = newPath.TrimEnd('/').TrimEnd('\\');
 
-        foreach (var originalFile in _fileProvider.EnumerateFiles(_mediaSettings.ImagePath, "*.*", false))
+        foreach (var originalFile in _fileProvider.EnumerateFiles(oldPath, "*.*", false))
         {
             if (isSubDir && originalFile.StartsWith(newPath))
                 continue;
 
-            var fileName = originalFile.Replace(_mediaSettings.ImagePath, string.Empty);
+            var fileName = originalFile.Replace(oldPath, string.Empty);
             var newFilePath = _fileProvider.Combine(newPath, fileName);
             var newDirPath = _fileProvider.GetParentDirectory(newFilePath).TrimEnd('/').TrimEnd('\\');
 
             var oldDirPath = _fileProvider.GetParentDirectory(originalFile).TrimEnd('/').TrimEnd('\\');
 
-            if (!oldDirPath.Equals(_mediaSettings.ImagePath.TrimEnd('/').TrimEnd('\\')) && !directoriesToDelete.Contains(oldDirPath))
+            if (!oldDirPath.Equals(oldPath.TrimEnd('/').TrimEnd('\\')) && !directoriesToDelete.Contains(oldDirPath))
                 directoriesToDelete.Add(oldDirPath);
 
-            if (!newDirPath.Equals(newPath) && !_fileProvider.DirectoryExists(newDirPath))
+            if (!newDirPath.Equals(newPath))
                 _fileProvider.CreateDirectory(newDirPath);
 
             _fileProvider.FileMove(originalFile, newFilePath);
         }
 
-        if (!newPath.StartsWith(_mediaSettings.ImagePath))
-            _fileProvider.DeleteDirectory(_mediaSettings.ImagePath);
+        if (!newPath.StartsWith(oldPath))
+            _fileProvider.DeleteDirectory(oldPath);
         else
         {
             foreach (var dir in directoriesToDelete)
                 _fileProvider.DeleteDirectory(dir);
         }
 
-        _mediaSettings.ImagePath= newPath;
+        _mediaSettings.PicturePath= path;
         await _settingService.SaveSettingAsync(_mediaSettings);
     }
 

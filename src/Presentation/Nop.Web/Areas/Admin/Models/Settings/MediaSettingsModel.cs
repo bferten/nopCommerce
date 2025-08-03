@@ -89,8 +89,8 @@ public partial record MediaSettingsModel : BaseNopModel, ISettingsModel
     public bool AllowSVGUploads { get; set; }
     public bool AllowSVGUploads_OverrideForStore { get; set; }
 
-    [NopResourceDisplayName("Admin.Configuration.Settings.Media.ImagePath")]
-    public string ImagePath { get; set; }
+    [NopResourceDisplayName("Admin.Configuration.Settings.Media.PicturePath")]
+    public string PicturePath { get; set; }
 
     #endregion
 }

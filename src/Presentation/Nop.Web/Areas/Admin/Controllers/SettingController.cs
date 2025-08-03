@@ -1086,30 +1086,28 @@ public partial class SettingController : BaseAdminController
     }
 
     [HttpPost, ActionName("Media")]
-    [FormValueRequired("change-image-path")]
+    [FormValueRequired("change-picture-path")]
     [CheckPermission(StandardPermission.Configuration.MANAGE_SETTINGS)]
     public virtual async Task<IActionResult> ChangeImagePath(MediaSettingsModel model)
     {
         try
         {
-            if (!_fileProvider.DirectoryExists(model.ImagePath))
+            if (!_fileProvider.CheckPermissions(model.PicturePath, true, true, true, true))
             {
-                _fileProvider.CreateDirectory(model.ImagePath);
-            }
-
-            if (!_fileProvider.CheckPermissions(model.ImagePath, true, true, true, true))
-            {
-                _notificationService.ErrorNotification(string.Format(await _localizationService.GetResourceAsync("Admin.Configuration.Settings.Media.ImagePath.NotGrantedPermission"), CurrentOSUser.FullName, model.ImagePath));
+                _notificationService.ErrorNotification(string.Format(await _localizationService.GetResourceAsync("Admin.Configuration.Settings.Media.PicturePath.NotGrantedPermission"), CurrentOSUser.FullName, model.PicturePath));
 
                 return RedirectToAction("Media");
             }
 
-            await _pictureService.ChangeImagePathAsync(model.ImagePath);
+            await _pictureService.ChangePicturesPathAsync(model.PicturePath);
 
             //activity log
             await _customerActivityService.InsertActivityAsync("EditSettings", await _localizationService.GetResourceAsync("ActivityLog.EditSettings"));
 
             _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Configuration.Updated"));
+
+            var returnUrl = Url.Action("Media", "Setting", new { area = AreaNames.ADMIN });
+            return View("RestartApplication", returnUrl);
         }
         catch (Exception ex)
         {

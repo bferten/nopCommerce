@@ -312,10 +312,11 @@ public class LocalizationMigration : MigrationBase
             ["Wishlist.NotAllowMultipleWishlist"] = "Multiple wishlist functionality is disabled.",
 
             //#5986
-            ["Admin.Configuration.Settings.Media.ImagePath"] = "Path to the picture files",
-            ["Admin.Configuration.Settings.Media.ImagePath.Hint"] = "Setup the path on the file system to store the picture files",
-            ["Admin.Configuration.Settings.Media.ImagePath.Move"] = "Move images",
-            ["Admin.Configuration.Settings.Media.ImagePath.NotGrantedPermission"] = "The '{0}' account is not granted with Modify permission on folder '{1}'. Please configure these permissions."
+            ["Admin.Configuration.Settings.Media.PicturePath"] = "Path to the picture files",
+            ["Admin.Configuration.Settings.Media.PicturePath.Hint"] = "Setup the path on the file system to store the picture files",
+            ["Admin.Configuration.Settings.Media.PicturePath.Move"] = "Move pictures",
+            ["Admin.Configuration.Settings.Media.PicturePath.NotGrantedPermission"] = "The '{0}' account is not granted with Modify permission on folder '{1}'. Please configure these permissions.",
+            ["Admin.Configuration.Settings.Media.ChangePicturePath.Note"] = "You can use either an absolute or a relative path to the directory. However, the relative path will always be inside the wwwroot directory.<br /> <strong>Attention!</strong> We strongly recommend that you create a backup copy of your site before changing this setting.<br /> Also, note that after changing the directory, the site will be restarted.",
         }, languageId);
 
         #endregion
