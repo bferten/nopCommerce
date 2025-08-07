@@ -18184,6 +18184,9 @@
   <LocaleResource Name="Forum.Post.IsUseful">
     <Value>This post/answer is useful</Value>
   </LocaleResource>
+  <LocaleResource Name="Forum.Post.Text">
+    <Value>Post Text</Value>
+  </LocaleResource>
   <LocaleResource Name="Forum.Posted">
     <Value>Posted</Value>
   </LocaleResource>
@@ -18300,6 +18303,9 @@
   </LocaleResource>
   <LocaleResource Name="Forum.TopicSubjectCannotBeEmpty">
     <Value>Topic subject can not be empty</Value>
+  </LocaleResource>
+  <LocaleResource Name="Forum.TopicText">
+    <Value>Topic Text</Value>
   </LocaleResource>
   <LocaleResource Name="Forum.TopicTitle">
     <Value>Topic Title</Value>
