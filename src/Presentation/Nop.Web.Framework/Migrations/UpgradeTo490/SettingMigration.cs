@@ -306,6 +306,49 @@ public class SettingMigration : MigrationBase
             aiSettings.ProductDescriptionQuery = ArtificialIntelligenceDefaults.ProductDescriptionQuery;
             settingService.SaveSetting(aiSettings, settings => settings.ProductDescriptionQuery);
         }
+
+        //#7732
+        if (!settingService.SettingExists(aiSettings, settings => settings.AllowGenerateProductDescription))
+        {
+            aiSettings.AllowGenerateProductDescription = true;
+            settingService.SaveSetting(aiSettings, settings => settings.AllowGenerateProductDescription);
+        }
+
+        if (!settingService.SettingExists(aiSettings, settings => settings.AllowGenerateMetaTitle))
+        {
+            aiSettings.AllowGenerateMetaTitle = true;
+            settingService.SaveSetting(aiSettings, settings => settings.AllowGenerateMetaTitle);
+        }
+
+        if (!settingService.SettingExists(aiSettings, settings => settings.MetaTitleQuery))
+        {
+            aiSettings.MetaTitleQuery = ArtificialIntelligenceDefaults.MetaTitleQuery;
+            settingService.SaveSetting(aiSettings, settings => settings.MetaTitleQuery);
+        }
+
+        if (!settingService.SettingExists(aiSettings, settings => settings.AllowGenerateMetaKeywords))
+        {
+            aiSettings.AllowGenerateMetaKeywords = true;
+            settingService.SaveSetting(aiSettings, settings => settings.AllowGenerateMetaKeywords);
+        }
+
+        if (!settingService.SettingExists(aiSettings, settings => settings.MetaKeywordsQuery))
+        {
+            aiSettings.MetaKeywordsQuery = ArtificialIntelligenceDefaults.MetaKeywordsQuery;
+            settingService.SaveSetting(aiSettings, settings => settings.MetaKeywordsQuery);
+        }
+
+        if (!settingService.SettingExists(aiSettings, settings => settings.AllowGenerateMetaDescription))
+        {
+            aiSettings.AllowGenerateMetaDescription = true;
+            settingService.SaveSetting(aiSettings, settings => settings.AllowGenerateMetaDescription);
+        }
+
+        if (!settingService.SettingExists(aiSettings, settings => settings.MetaDescriptionQuery))
+        {
+            aiSettings.MetaDescriptionQuery = ArtificialIntelligenceDefaults.MetaDescriptionQuery;
+            settingService.SaveSetting(aiSettings, settings => settings.MetaDescriptionQuery);
+        }
     }
 
     public override void Down()

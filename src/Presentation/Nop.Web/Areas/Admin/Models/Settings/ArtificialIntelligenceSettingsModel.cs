@@ -33,8 +33,29 @@ public partial record ArtificialIntelligenceSettingsModel : BaseNopModel, ISetti
     [DataType(DataType.Password)]
     public string DeepSeekApiKey { get; set; }
 
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateProductDescription")]
+    public bool AllowGenerateProductDescription { get; set; }
+
     [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.ProductDescriptionQuery")]
     public string ProductDescriptionQuery { get; set; }
+
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaKeywords")]
+    public bool AllowGenerateMetaKeywords { get; set; }
+
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaKeywordsQuery")]
+    public string MetaKeywordsQuery { get; set; }
+
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaDescription")]
+    public bool AllowGenerateMetaDescription { get; set; }
+
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaDescriptionQuery")]
+    public string MetaDescriptionQuery { get; set; }
+
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaTitle")]
+    public bool AllowGenerateMetaTitle { get; set; }
+
+    [NopResourceDisplayName("Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaTitleQuery")]
+    public string MetaTitleQuery { get; set; }
 
     #endregion
 }

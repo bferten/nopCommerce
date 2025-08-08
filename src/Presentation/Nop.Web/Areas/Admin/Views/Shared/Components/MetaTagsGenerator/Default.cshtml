@@ -1,0 +1,66 @@
+@model MetaTagsGeneratorModel
+
+@using Nop.Services.Messages
+@using Nop.Web.Framework.TagHelpers.Shared
+
+
+<div class="form-group row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+        <button id="generate-button-@Model.LanguageId" type="button" style="width:100%" class="btn btn-default">
+            <i class="fas fa-globe"></i>
+            @T("Admin.ArtificialIntelligence.GenerateMetaTags")
+        </button>
+    </div>
+</div>
+
+
+<script asp-location="Footer">
+    $(function() {
+        var $form = $('#@Model.FormId');
+        var origForm = undefined;
+
+        document.addEventListener('readystatechange', function () {
+            if (document.readyState === 'complete' && origForm === undefined) {
+                origForm = $form.serialize();
+            }
+        });
+
+        $('#generate-button-@Model.LanguageId').click(function () {
+
+            if($form.serialize() !== origForm)
+            {
+                alert('@T("Admin.ArtificialIntelligence.GenerateMetaTags.SaveBeforeGenerate")');
+                return;
+            }
+
+            var postData = {
+                LanguageId: @Model.LanguageId,
+                EntityId: @Model.EntityId,
+                EntityType: '@Model.EntityType'
+            };
+
+            addAntiForgeryToken(postData);
+
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '@(Url.Action("GenerateMetaTags","Common"))',
+                data: postData,
+                success: function (data, textStatus, jqXHR) { 
+                    if (data.HasError) {
+                        displayBarNotification(data.Error, @((int)NotifyType.Warning));
+                        $('#backTop').click();
+                    }else{
+                        $('#@Model.MetaTitleElementId').val(data.MetaTags.Title);
+                        $('#@Model.MetaKeywordsElementId').val(data.MetaTags.Keywords);
+                        $('#@Model.MetaDescriptionElementId').val(data.MetaTags.Description);
+
+                        origForm = $form.serialize();
+                    }                   
+                }
+            });
+        });
+    });
+</script>

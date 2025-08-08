@@ -756,7 +756,14 @@ public partial class SettingController : BaseAdminController
             artificialIntelligenceSettings.ChatGptApiKey = model.ArtificialIntelligenceSettingsModel.ChatGptApiKey;
             artificialIntelligenceSettings.DeepSeekApiKey = model.ArtificialIntelligenceSettingsModel.DeepSeekApiKey;
             artificialIntelligenceSettings.GeminiApiKey = model.ArtificialIntelligenceSettingsModel.GeminiApiKey;
+            artificialIntelligenceSettings.AllowGenerateProductDescription = model.ArtificialIntelligenceSettingsModel.AllowGenerateProductDescription;
             artificialIntelligenceSettings.ProductDescriptionQuery = model.ArtificialIntelligenceSettingsModel.ProductDescriptionQuery;
+            artificialIntelligenceSettings.AllowGenerateMetaTitle = model.ArtificialIntelligenceSettingsModel.AllowGenerateMetaTitle;
+            artificialIntelligenceSettings.MetaTitleQuery = model.ArtificialIntelligenceSettingsModel.MetaTitleQuery;
+            artificialIntelligenceSettings.AllowGenerateMetaKeywords = model.ArtificialIntelligenceSettingsModel.AllowGenerateMetaKeywords;
+            artificialIntelligenceSettings.MetaKeywordsQuery = model.ArtificialIntelligenceSettingsModel.MetaKeywordsQuery;
+            artificialIntelligenceSettings.AllowGenerateMetaDescription = model.ArtificialIntelligenceSettingsModel.AllowGenerateMetaDescription;
+            artificialIntelligenceSettings.MetaDescriptionQuery = model.ArtificialIntelligenceSettingsModel.MetaDescriptionQuery;
 
             await _settingService.SaveSettingAsync(artificialIntelligenceSettings);
 

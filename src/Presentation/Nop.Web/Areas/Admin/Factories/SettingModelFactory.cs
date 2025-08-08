@@ -202,7 +202,14 @@ public partial class SettingModelFactory : ISettingModelFactory
         model.DeepSeekApiKey = artificialIntelligenceSettings.DeepSeekApiKey;
         model.GeminiApiKey = artificialIntelligenceSettings.GeminiApiKey;
         model.ProviderTypeId = (int)artificialIntelligenceSettings.ProviderType;
+        model.AllowGenerateProductDescription = artificialIntelligenceSettings.AllowGenerateProductDescription;
         model.ProductDescriptionQuery = artificialIntelligenceSettings.ProductDescriptionQuery;
+        model.AllowGenerateMetaTitle = artificialIntelligenceSettings.AllowGenerateMetaTitle;
+        model.MetaTitleQuery = artificialIntelligenceSettings.MetaTitleQuery;
+        model.AllowGenerateMetaKeywords = artificialIntelligenceSettings.AllowGenerateMetaKeywords;
+        model.MetaKeywordsQuery = artificialIntelligenceSettings.MetaKeywordsQuery;
+        model.AllowGenerateMetaDescription = artificialIntelligenceSettings.AllowGenerateMetaDescription;
+        model.MetaDescriptionQuery = artificialIntelligenceSettings.MetaDescriptionQuery;
 
         //prepare available translation services
         var availableProviderType = await ArtificialIntelligenceProviderType.Gemini.ToSelectListAsync(false);

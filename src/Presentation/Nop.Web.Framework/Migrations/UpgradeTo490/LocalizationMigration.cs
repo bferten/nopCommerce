@@ -363,7 +363,26 @@ public class LocalizationMigration : MigrationBase
             ["Admin.Catalog.Products.AiFullDescription.CustomToneOfVoice.Required"] = "Please choose the tone of voice instructions.",
             ["Admin.Catalog.Products.AiFullDescription.Language"] = "Target language",
             ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.ProductDescriptionQuery"] = "Artificial intelligence query",
-            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.ProductDescriptionQuery.Hint"] = "Set the query for create product description with artificial intelligence service.",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.ProductDescriptionQuery.Hint"] = "Set the query for create product description with artificial intelligence service",
+
+            //#7732
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.ProductDescriptionQuery"] = "AI query to generate product description",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.Info"] = "<p>Artificial intelligence functionality allows you to use third-party AI services such as <a href='https://www.deepseek.com/' target='_blank'>DeepSeek</a>, <a href='https://gemini.google.com/' target='_blank'>Gemini</a> or <a href='https://chatgpt.com/' target='_blank'>ChatGPT</a> to automatically generate content. This could be either product descriptions or meta tags for specific pages or entities.</p>",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaKeywordsQuery"] = "AI query to generate meta keyword",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaKeywordsQuery.Hint"] = "Set the query for create meta keyword with artificial intelligence service",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaDescriptionQuery"] = "“AI query to generate meta description",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaDescriptionQuery.Hint"] = "Set the query for create meta description with artificial intelligence service",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaTitleQuery"] = "“AI query to generate meta title",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.MetaTitleQuery.Hint"] = "Set the query for create meta title with artificial intelligence service",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateProductDescription"] = "Allow to generate product description",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateProductDescription.Hint"] = "Check to allow the generation of product descriptions with artificial intelligence services.",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaKeywords"] = "Allow to generate meta keywords",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaKeywords.Hint"] = "Check to allow the generation of meta keywords with artificial intelligence services.",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaDescription"] = "Allow to generate meta description",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaDescription.Hint"] = "Check to allow the generation of meta description with artificial intelligence services.",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaTitle"] = "Allow to generate meta title",
+            ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaTitle.Hint"] = "Check to allow the generation of meta title with artificial intelligence services.",
+            ["Admin.ArtificialIntelligence.GenerateMetaTags"] = "Generate meta tags",
         }, languageId);
 
         #endregion

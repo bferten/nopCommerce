@@ -1482,7 +1482,14 @@ public partial class InstallationService
             GeminiApiKey = string.Empty,
             ProviderType = ArtificialIntelligenceProviderType.Gemini,
             RequestTimeout = ArtificialIntelligenceDefaults.RequestTimeout,
-            ProductDescriptionQuery = ArtificialIntelligenceDefaults.ProductDescriptionQuery
+            AllowGenerateProductDescription = true,
+            ProductDescriptionQuery = ArtificialIntelligenceDefaults.ProductDescriptionQuery,
+            AllowGenerateMetaTitle = true,
+            MetaTitleQuery = ArtificialIntelligenceDefaults.MetaTitleQuery,
+            AllowGenerateMetaKeywords = true,
+            MetaKeywordsQuery = ArtificialIntelligenceDefaults.MetaKeywordsQuery,
+            AllowGenerateMetaDescription = true,
+            MetaDescriptionQuery = ArtificialIntelligenceDefaults.MetaDescriptionQuery
         });
 
         await SaveSettingAsync(dictionary, new LocalizationSettings
