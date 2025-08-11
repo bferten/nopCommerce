@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Text;
 using System.Xml;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Core.Domain.Blogs;
@@ -35,11 +34,11 @@ public partial class SitemapModelFactory : ISitemapModelFactory
 
     protected readonly BlogSettings _blogSettings;
     protected readonly ForumSettings _forumSettings;
-    protected readonly IActionContextAccessor _actionContextAccessor;
     protected readonly IBlogService _blogService;
     protected readonly ICategoryService _categoryService;
     protected readonly ICustomerService _customerService;
     protected readonly IEventPublisher _eventPublisher;
+    protected readonly IHttpContextAccessor _httpContextAccessor;
     protected readonly ILanguageService _languageService;
     protected readonly ILocalizationService _localizationService;
     protected readonly ILocker _locker;
@@ -65,11 +64,11 @@ public partial class SitemapModelFactory : ISitemapModelFactory
 
     public SitemapModelFactory(BlogSettings blogSettings,
         ForumSettings forumSettings,
-        IActionContextAccessor actionContextAccessor,
         IBlogService blogService,
         ICategoryService categoryService,
         ICustomerService customerService,
         IEventPublisher eventPublisher,
+        IHttpContextAccessor httpContextAccessor,
         ILanguageService languageService,
         ILocalizationService localizationService,
         ILocker locker,
@@ -91,11 +90,11 @@ public partial class SitemapModelFactory : ISitemapModelFactory
     {
         _blogSettings = blogSettings;
         _forumSettings = forumSettings;
-        _actionContextAccessor = actionContextAccessor;
         _blogService = blogService;
         _categoryService = categoryService;
         _customerService = customerService;
         _eventPublisher = eventPublisher;
+        _httpContextAccessor = httpContextAccessor;
         _languageService = languageService;
         _localizationService = localizationService;
         _locker = locker;
@@ -437,7 +436,7 @@ public partial class SitemapModelFactory : ISitemapModelFactory
             //extract seo code
             var altLoc = await XmlHelper.XmlEncodeAsync(alternate);
             var altLocPath = new Uri(altLoc).PathAndQuery;
-            var (_, lang) = await altLocPath.IsLocalizedUrlAsync(_actionContextAccessor.ActionContext.HttpContext.Request.PathBase, true);
+            var (_, lang) = await altLocPath.IsLocalizedUrlAsync(_httpContextAccessor.HttpContext.Request.PathBase, true);
 
             if (string.IsNullOrEmpty(lang?.UniqueSeoCode))
                 continue;
@@ -525,10 +524,7 @@ public partial class SitemapModelFactory : ISitemapModelFactory
         if (string.IsNullOrEmpty(currentUrl))
             return null;
 
-        if (_actionContextAccessor.ActionContext == null)
-            return null;
-
-        var pathBase = _actionContextAccessor.ActionContext.HttpContext.Request.PathBase;
+        var pathBase = _httpContextAccessor.HttpContext.Request.PathBase;
 
         //Extract server and path from url
         var scheme = new Uri(currentUrl).GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);

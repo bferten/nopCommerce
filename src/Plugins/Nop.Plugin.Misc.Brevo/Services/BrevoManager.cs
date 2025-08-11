@@ -12,7 +12,6 @@ using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
 using Nop.Core.Domain.Messages;
 using Nop.Plugin.Misc.Brevo.Domain;
-using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Customers;
 using Nop.Services.Directory;
@@ -36,7 +35,6 @@ public partial class BrevoManager
     protected readonly ICountryService _countryService;
     protected readonly ICustomerService _customerService;
     protected readonly IEmailAccountService _emailAccountService;
-    protected readonly IGenericAttributeService _genericAttributeService;
     protected readonly ILanguageService _languageService;
     protected readonly ILogger _logger;
     protected readonly INewsLetterSubscriptionService _newsLetterSubscriptionService;
@@ -54,7 +52,6 @@ public partial class BrevoManager
     public BrevoManager(ICountryService countryService,
         ICustomerService customerService,
         IEmailAccountService emailAccountService,
-        IGenericAttributeService genericAttributeService,
         ILanguageService languageService,
         ILogger logger,
         INewsLetterSubscriptionService newsLetterSubscriptionService,
@@ -68,7 +65,6 @@ public partial class BrevoManager
         _countryService = countryService;
         _customerService = customerService;
         _emailAccountService = emailAccountService;
-        _genericAttributeService = genericAttributeService;
         _languageService = languageService;
         _logger = logger;
         _newsLetterSubscriptionService = newsLetterSubscriptionService;
