@@ -383,6 +383,7 @@ public class LocalizationMigration : MigrationBase
             ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaTitle"] = "Allow to generate meta title",
             ["Admin.Configuration.Settings.Catalog.ArtificialIntelligence.AllowGenerateMetaTitle.Hint"] = "Check to allow the generation of meta title with artificial intelligence services.",
             ["Admin.ArtificialIntelligence.GenerateMetaTags"] = "Generate meta tags",
+            ["Admin.ArtificialIntelligence.GenerateMetaTags.SaveBeforeGenerate"] = "You need to save the product before you can generate meta tags.",
         }, languageId);
 
         #endregion
